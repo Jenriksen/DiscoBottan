@@ -1,0 +1,11 @@
+Discord bot
+
+Following: https://www.devdungeon.com/content/make-discord-bot-python
+
+Client Id for "First Bot" application on Discord = 477924508720955403
+"God" bot token = NDc3OTI0NTA4NzIwOTU1NDAz.DlDN1Q.-yAj4VY12STJDypGhm30-AunpIs
+
+
+Other potentially good links: 
+https://boostlog.io/@junp1234/how-to-write-a-discord-bot-in-python-5a8e73aca7e5b7008ae1da8b
+https://github.com/Rapptz/discord.py
