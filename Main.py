@@ -10,10 +10,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    # Greets you.
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
     
+    # Lists the members of the server
     if message.content.startswith('!members'):
         msg = ''
         for member in message.server.members:
