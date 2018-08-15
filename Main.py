@@ -17,9 +17,14 @@ async def on_message(message):
     
     # Lists the members of the server
     if message.content.startswith('!members'):
+        memberList = [""]
         msg = ''
         for member in message.server.members:
+            # Prints list to console and appends to the memberList
             print(member)
+            memberList.append(member)
+
+            # Sends message to request channel on discord in async.
             await client.send_message(message.channel, member)
         await client.send_message(message.channel, msg)
   
