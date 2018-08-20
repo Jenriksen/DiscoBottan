@@ -33,10 +33,10 @@ async def square(number):
     squared_value= int(number)*int(number)
     await client.say(str(number)+ " squared is " + str(squared_value))
 
-# @client.event
-# async def on_ready():
-#     await client.change_presence(game=Game(name="with humans"))
-#     print("Logged in as " + client.user.name)
+@client.event
+async def on_ready():
+    await client.change_status(game=Game(name="with humans"))
+    print("Logged in as " + client.user.name)
 
 @client.command()
 async def bitcoin():
@@ -54,7 +54,7 @@ async def list_servers():
         print("Current servers:")
         for server in client.servers:
             print(server.name)
-        await asyncio.sleep(6)
+        await asyncio.sleep(600)
 
 client.loop.create_task(list_servers())
 
