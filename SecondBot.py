@@ -3,6 +3,7 @@ import asyncio
 import aiohttp
 import requests
 import json
+import discord
 from discord import game
 from discord.ext.commands import Bot
 
@@ -33,14 +34,21 @@ async def square(number):
     squared_value= int(number)*int(number)
     await client.say(str(number)+ " squared is " + str(squared_value))
 
+<<<<<<< HEAD
 # @client.event
 # async def on_ready():
 #     await client.change_status(game=Game(name="with humans"))
 #     print("Logged in as " + client.user.name)
+=======
+@client.event
+async def on_ready():
+    await client.change_status(game=discord.Game(name="with humans"))
+    print("Logged in as " + client.user.name)
+>>>>>>> game-presence
 
 @client.command()
 async def bitcoin():
-    url = 'httpsS://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
     async with aiohttp.ClientSession() as session: #async http request
         raw_response = await session.get(url)
         response = await raw_response.text()
