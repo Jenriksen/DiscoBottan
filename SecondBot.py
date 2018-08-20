@@ -36,7 +36,7 @@ async def square(number):
 
 @client.event
 async def on_ready():
-    await client.change_status(game=discord.Game(name="with humans"))
+    await client.change_status(game=discord.Game(name="with humans", type=1))
     print("Logged in as " + client.user.name)
 
 @client.command()
