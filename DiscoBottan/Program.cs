@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using DSharpPlus;
 
@@ -15,9 +16,10 @@ namespace DiscoBottan
 
         static async Task MainAsync(string[] args)
         {
+            var token = File.ReadAllText("../../../../.token");
             _discord = new DiscordClient(new DiscordConfiguration
             {
-                Token = "NDc3OTI0NTA4NzIwOTU1NDAz.DlDN1Q.-yAj4VY12STJDypGhm30-AunpIs",
+                Token = token,
                 TokenType = TokenType.Bot
             });
 
