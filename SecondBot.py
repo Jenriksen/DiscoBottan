@@ -34,17 +34,10 @@ async def square(number):
     squared_value= int(number)*int(number)
     await client.say(str(number)+ " squared is " + str(squared_value))
 
-<<<<<<< HEAD
-# @client.event
-# async def on_ready():
-#     await client.change_status(game=Game(name="with humans"))
-#     print("Logged in as " + client.user.name)
-=======
 @client.event
 async def on_ready():
     await client.change_status(game=discord.Game(name="with humans"))
     print("Logged in as " + client.user.name)
->>>>>>> game-presence
 
 @client.command()
 async def bitcoin():
