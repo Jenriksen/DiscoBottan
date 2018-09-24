@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DSharpPlus.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DiscoBottan.Commands {
     public interface ICommand {
-        string RunCommand();
+        string RunCommand(DiscordUser author);
     }
 }
