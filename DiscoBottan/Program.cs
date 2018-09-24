@@ -25,8 +25,11 @@ namespace DiscoBottan
 
             _discord.MessageCreated += async e =>
             {
-                if (e.Message.Content.ToLower().StartsWith("ping"))
-                    await e.Message.RespondAsync("pong!");
+                var response = MessageParser.ParseIt(e.Message.Content).RunCommand();
+
+                if (!string.IsNullOrWhiteSpace(response)) {
+                    await e.Message.RespondAsync(response);
+                }
             };
 
             await _discord.ConnectAsync();
