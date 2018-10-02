@@ -26,10 +26,13 @@ namespace DiscoBottan {
         private static Parser<ICommand> garbage = from garbage in Parse.AnyChar.Many()
                                                   select new GarbageCommand();
 
+        private static Parser<ICommand> laugh = from laugh in Parse.Regex("(h(e|a|i)|l(o|u|aw)l)")
+                                                select new LaughCommand();
 
         private static Parser<ICommand> Parser =
             whatParser
             .Or(siggyParser)
+            .Or(laugh)
             .Or(garbage);
 
         public static ICommand ParseIt(string message) {
