@@ -57,6 +57,5 @@ namespace DiscoBottan
             public string CommandPrefix { get; private set; }
         }
         
-        //Comment added
     }
 }

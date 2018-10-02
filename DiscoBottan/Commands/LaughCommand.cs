@@ -4,23 +4,23 @@ using System;
 namespace DiscoBottan.Commands {
     public class LaughCommand : ICommand
     {
-        private readonly Random random = new Random();
+        private readonly Random _random = new Random();
         public string RunCommand(DiscordUser author)
         {
-            var laugh = (Laughs)random.Next(4);
+            var laugh = (Laughs)_random.Next(4);
 
             string response;
             switch (laugh) {
-                case Laughs.ha:
-                    response = haha();
+                case Laughs.Ha:
+                    response = Haha();
                     break;
-                case Laughs.he:
-                    response = heh();
+                case Laughs.He:
+                    response = Heh();
                     break;
-                case Laughs.lol:
-                    response = lol();
+                case Laughs.Lol:
+                    response = Lol();
                     break;
-                case Laughs.lul:
+                case Laughs.Lul:
                     response = "lul";
                     break;
                 default:
@@ -31,28 +31,28 @@ namespace DiscoBottan.Commands {
             return response;
         }
 
-        private string haha() {
-            var numberOfHas = random.Next(2, 10);
+        private string Haha() {
+            var numberOfHas = _random.Next(2, 10);
 
             var haha = "";
             for (var i = 0; i < numberOfHas; i++) {
                 haha += "ha";
             }
 
-            if (random.Next(2) == 1) {
+            if (_random.Next(2) == 1) {
                 haha = haha.ToUpper();
             }
 
             return haha;
         }
 
-        private string heh() {
+        private string Heh() {
             return "heh";
         }
 
-        private string lol() {
-            if (random.Next(100) > 95) {
-                var howFunny = random.Next(15);
+        private string Lol() {
+            if (_random.Next(100) > 95) {
+                var howFunny = _random.Next(15);
                 string laugh = "l";
                 for (var i = 0; i < howFunny; i++) {
                     laugh += "o";
@@ -63,10 +63,10 @@ namespace DiscoBottan.Commands {
             }
         }
         private enum Laughs {
-            ha,
-            he,
-            lol,
-            lul
+            Ha,
+            He,
+            Lol,
+            Lul
         }
     }
 }
