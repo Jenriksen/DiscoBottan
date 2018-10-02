@@ -56,5 +56,7 @@ namespace DiscoBottan
             [JsonProperty("prefix")]
             public string CommandPrefix { get; private set; }
         }
+        
+        //Comment added
     }
 }
