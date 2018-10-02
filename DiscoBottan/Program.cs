@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using DSharpPlus;
+using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -29,7 +31,7 @@ namespace DiscoBottan
                 LogLevel = LogLevel.Debug,
                 UseInternalLogHandler = true
             });
-
+           
 
             Debug debug = new Debug();
             this.Client.Ready += debug.Client_Ready;
@@ -55,6 +57,20 @@ namespace DiscoBottan
 
             [JsonProperty("prefix")]
             public string CommandPrefix { get; private set; }
+        }
+        
+        // Debug logging handled here:
+        private Task Client_Ready(ReadyEventArgs e)
+        {
+            // Lets log the fact that this event occured.
+            e.Client.DebugLogger.LogMessage(LogLevel.Info, "DiscoBottan", "Client is ready to process events.", DateTime.Now);
+            return Task.CompletedTask;
+        }
+
+        private Task Client_ClientError(ClientErrorEventArgs e)
+        {
+            e.Client.DebugLogger.LogMessage(LogLevel.Error, "DiscoBottan", $"Exception occured: {e.Exception.GetType()}: {e.Exception.Message}", DateTime.Now);
+            return Task.CompletedTask;
         }
         
     }
