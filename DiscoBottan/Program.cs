@@ -71,10 +71,12 @@ namespace DiscoBottan
                 
             Client.MessageCreated += async e =>
             {
-                var response = MessageParser.ParseIt(e.Message.Content).RunCommand(e.Author);
+                if (e.Author.Id != Client.CurrentUser.Id) {
+                    var response = MessageParser.ParseIt(e.Message.Content).RunCommand(e.Author);
 
-                if (!string.IsNullOrWhiteSpace(response)) {
-                    await e.Message.RespondAsync(response);
+                    if (!string.IsNullOrWhiteSpace(response)) {
+                        await e.Message.RespondAsync(response);
+                    }
                 }
             };
 
