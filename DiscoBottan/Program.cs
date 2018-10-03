@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using DiscoBottan.Commands;
 using DSharpPlus;
@@ -10,7 +8,6 @@ using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace DiscoBottan
 {
@@ -19,7 +16,7 @@ namespace DiscoBottan
         public DiscordClient Client;
         public CommandsNextModule Commands { get; set; }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var prog = new Program();
             prog.RunBotAsync().GetAwaiter().GetResult();
@@ -39,8 +36,8 @@ namespace DiscoBottan
            
 
             Debug debug = new Debug();
-            this.Client.Ready += debug.Client_Ready;
-            this.Client.ClientErrored += debug.Client_ClientError;
+            Client.Ready += debug.Client_Ready;
+            Client.ClientErrored += debug.Client_ClientError;
 
             var ccfg = new CommandsNextConfiguration
             {
@@ -53,11 +50,11 @@ namespace DiscoBottan
             };
             
             // hooking up commands
-            this.Commands = this.Client.UseCommandsNext(ccfg);
+            Commands = Client.UseCommandsNext(ccfg);
             
             // Event logging of commands
-            this.Commands.CommandExecuted += this.Commands_CommandExecuted;
-            this.Commands.CommandErrored += this.Commands_CommandErrored;
+            Commands.CommandExecuted += Commands_CommandExecuted;
+            Commands.CommandErrored += Commands_CommandErrored;
             
             // let's add a converter for a custom type and a name
             var mathopcvt = new MathOperationConverter();
@@ -65,12 +62,12 @@ namespace DiscoBottan
             CommandsNextUtilities.RegisterUserFriendlyTypeName<MathOperation>("operation");
             
             // registrering commands
-            this.Commands.RegisterCommands<ExampleUngrouppedCommands>();
-            this.Commands.RegisterCommands<ExampleGrouppedCommands>();
-            this.Commands.RegisterCommands<ExampleExecutableGroup>();
+            Commands.RegisterCommands<ExampleUngrouppedCommands>();
+            Commands.RegisterCommands<ExampleGrouppedCommands>();
+            Commands.RegisterCommands<ExampleExecutableGroup>();
             
             // custom formatting help
-            this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
+            Commands.SetHelpFormatter<SimpleHelpFormatter>();
                 
             Client.MessageCreated += async e =>
             {
