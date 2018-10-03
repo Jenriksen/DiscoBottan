@@ -11,7 +11,7 @@ using DSharpPlus.Entities;
 
 namespace DiscoBottan.Commands
 {
-    public class ExampleUngroupedCommands
+    public class ExampleUngrouppedCommands
     {
         [Command("Ping")] // Method defining as a command
         [Description("Example ping command")]
@@ -23,11 +23,12 @@ namespace DiscoBottan.Commands
 
             var emoji = DiscordEmoji.FromName(ctx.Client, ":wave");
 
-            await ctx.RespondAsync($"{emoji} Hello, {member.Mention}");
+            await ctx.RespondAsync($"{emoji} Pong! Ping: {ctx.Client.Ping}ms");
         }
-        
+
         [Command("greet"), Description("Says hi to specified user."), Aliases("sayhi", "say_hi")]
-        public async Task Greet(CommandContext ctx, [Description("The user to say hi to.")] DiscordMember member) // this command takes a member as an argument; you can pass one by username, nickname, id, or mention
+        public async Task Greet(CommandContext ctx, [Description("The user to say hi to.")]
+            DiscordMember member) // this command takes a member as an argument; you can pass one by username, nickname, id, or mention
         {
             // note the [Description] attribute on the argument.
             // this will appear when people invoke help for the
@@ -44,16 +45,16 @@ namespace DiscoBottan.Commands
             await ctx.RespondAsync($"{emoji} Hello, {member.Mention}!");
         }
 
-        
+
         [Command("sum"), Description("Sums all given numbers and returns said sum.")]
         public async Task SumOfNumbers(CommandContext ctx, [Description("Integers to sum.")] params int[] args)
         {
             // triggers typing indicator to show that we are working.
             await ctx.TriggerTypingAsync();
-            
+
             // sum calculation
             var sum = args.Sum();
-            
+
             // send it to end user.
             await ctx.RespondAsync($"The sum of these numbers is {sum.ToString("#,##0")}");
         }
@@ -75,6 +76,7 @@ namespace DiscoBottan.Commands
                     break;
                 case MathOperation.Multiply:
                     result = num1 * num2;
+                    break;
                 case MathOperation.Divide:
                     result = num1 / num2;
                     break;
@@ -87,13 +89,14 @@ namespace DiscoBottan.Commands
             await ctx.RespondAsync($"{emoji} The result is {result.ToString("#,##0.00")}");
         }
     }
-    
-    
+
+
     [Group("admin")] // marks a command group
     [Description("Administrative commands.")]
     [Hidden] //hides it from curious users
-    [RequirePermissions(Permissions.ManageGuild)] // restricts usage to appropriate permission level.
-    public class ExampleGroupedCommands
+    [RequirePermissions(Permissions.ManageGuild)]
+    // restricts usage to appropriate permission level.
+    public class ExampleGrouppedCommands
     {
         [Command("sudo"), Description("Executes a command as another user."), Hidden, RequireOwner]
         public async Task Sudo(CommandContext ctx, [Description("Member to execute as.")] DiscordMember member,
@@ -101,10 +104,10 @@ namespace DiscoBottan.Commands
             string command)
         {
             await ctx.TriggerTypingAsync();
-            
+
             // Get the command service needed for sudo purposes.
             var cmds = ctx.CommandsNext;
-            
+
             // performs the sudo
             await cmds.SudoAsync(member, ctx.Channel, command);
         }
@@ -119,7 +122,7 @@ namespace DiscoBottan.Commands
             try
             {
                 await member.ModifyAsync(new_nickname, reason: $"Changed by {ctx.User.Username} ({ctx.User.Id}).");
-                
+
                 // simple response
                 var emoji = DiscordEmoji.FromName(ctx.Client, ":+1:");
 
@@ -134,7 +137,8 @@ namespace DiscoBottan.Commands
         }
     }
 
-    [Group("memes", CanInvokeWithoutSubcommand = true)] // this makes the class a group, but with a twist; the class now needs an ExecuteGroupAsync method
+    [Group("memes", CanInvokeWithoutSubcommand =
+        true)] // this makes the class a group, but with a twist; the class now needs an ExecuteGroupAsync method
     [Description("Contains some memes. When invoked without subcommand, returns a random one.")]
     [Aliases("copypasta")]
     public class ExampleExecutableGroup
@@ -149,7 +153,7 @@ namespace DiscoBottan.Commands
         public async Task ExecuteGroupAsync(CommandContext ctx)
         {
             var rnd = new Random();
-            var next = rnd.Next(0, 2);
+            var nxt = rnd.Next(0, 2);
 
             switch (nxt)
             {
@@ -164,7 +168,7 @@ namespace DiscoBottan.Commands
                     return;
             }
         }
-        
+
         [Command("pepe"), Aliases("feelsbadman"), Description("Feels bad, man.")]
         public async Task Pepe(CommandContext ctx)
         {
@@ -183,14 +187,16 @@ namespace DiscoBottan.Commands
         public async Task NavySeal(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync("What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.");
+            await ctx.RespondAsync(
+                "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.");
         }
 
         [Command("kekistani"), Aliases("kek", "normies"), Description("I'm a proud ethnic Kekistani.")]
         public async Task Kekistani(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync("I'm a proud ethnic Kekistani. For centuries my people bled under Normie oppression. But no more. We have suffered enough under your Social Media Tyranny. It is time to strike back. I hereby declare a meme jihad on all Normies. Normies, GET OUT! RRRÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆ﻿");
+            await ctx.RespondAsync(
+                "I'm a proud ethnic Kekistani. For centuries my people bled under Normie oppression. But no more. We have suffered enough under your Social Media Tyranny. It is time to strike back. I hereby declare a meme jihad on all Normies. Normies, GET OUT! RRRÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆ﻿");
         }
 
         // this is a subgroup; you can nest groups as much 
@@ -322,6 +328,7 @@ namespace DiscoBottan.Commands
                 };
                 await ctx.RespondAsync(embed: embed);
             }
-        
+
+        }
     }
 }

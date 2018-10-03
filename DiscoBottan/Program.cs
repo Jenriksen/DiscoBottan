@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using DiscoBottan.Commands;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
@@ -65,8 +66,8 @@ namespace DiscoBottan
             
             // registrering commands
             this.Commands.RegisterCommands<ExampleUngrouppedCommands>();
-            this.Commands.RegisterCommands<ExampleGroupCommands>();
-            this.Commands.RegisterCommands<ExampleExxecutableGroup>();
+            this.Commands.RegisterCommands<ExampleGrouppedCommands>();
+            this.Commands.RegisterCommands<ExampleExecutableGroup>();
             
             // custom formatting help
             this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
