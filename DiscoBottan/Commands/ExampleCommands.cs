@@ -58,8 +58,8 @@ namespace DiscoBottan.Commands
         }
 
         [Command("math"), Description("Does basic math.")]
-        public async Task Math(CommandContext ctx, [Description("Operation to perform on the operands.")]
-            MathOperation operation, [Description("First operand.")] double num1,
+        public async Task Math(CommandContext ctx, [Description("First operand.")] double num1, [Description("Operation to perform on the operands.")]
+            MathOperation operation,
             [Description("Second operand.")] double num2)
         {
             var result = 0.0;

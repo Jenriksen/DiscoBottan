@@ -26,16 +26,18 @@ namespace DiscoBottan.Commands
                 Title = "Poll time!",
                 Description = string.Join(" ", poll_options)
             };
+
+            var msg = await ctx.RespondAsync(embed: embed);
             
             // add reactions as options
             for (var i = 0; i < options.Length; i++)
             {
-                await.msg.CreateReactionAsync(options[i]);
+                await msg.CreateReactionAsync(options[i]);
             }
             
             // collect and filter responses
             var poll_result = await interactivity.CollectReactionsAsync(msg, duration);
-            var results = poll_result.Where(xkvp => options.Contains(xkvp.Key))
+            var results = poll_result.Reactions.Where(xkvp => options.Contains(xkvp.Key))
                 .Select(xkvp => $"{xkvp.Key}: {xkvp.Value}");
             
             // post results
