@@ -1,7 +1,4 @@
 ﻿using Sprache;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DiscoBottan.Commands;
 
 namespace DiscoBottan {
