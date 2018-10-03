@@ -1,6 +1,0 @@
-Discord bot
-
-Client Id for "First Bot" application on Discord = 477924508720955403
-"God" bot token = NDc3OTI0NTA4NzIwOTU1NDAz.DlDN1Q.-yAj4VY12STJDypGhm30-AunpIs
-
-API used for discord bot: https://github.com/DSharpPlus/DSharpPlus
