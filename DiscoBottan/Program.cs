@@ -16,6 +16,7 @@ namespace DiscoBottan
     public class Program
     {
         public DiscordClient Client;
+        public CommandsNextModule Commands { get; set; }
 
         static void Main(string[] args)
         {
@@ -40,6 +41,36 @@ namespace DiscoBottan
             this.Client.Ready += debug.Client_Ready;
             this.Client.ClientErrored += debug.Client_ClientError;
 
+            var ccfg = new CommandsNextConfiguration
+            {
+                // Use string prefix from config.json
+                //StringPrefix = cfgjson.CommandPrefix,
+                
+                // enables responding in direct messages
+                EnableDms = true,
+                EnableMentionPrefix = true
+            };
+            
+            // hooking up commands
+            this.Commands = this.Client.UseCommandsNext(ccfg);
+            
+            // Event logging of commands
+            this.Commands.CommandExecuted += this.Commands_CommandExecuted;
+            this.Commands.CommandErrored += this.Commands_CommandErrored;
+            
+            // let's add a converter for a custom type and a name
+            var mathopcvt = new MathOperationConverter();
+            CommandsNextUtilities.RegisterConverter(mathopcvt);
+            CommandsNextUtilities.RegisterUserFriendlyTypeName<MathOperation>("operation");
+            
+            // registrering commands
+            this.Commands.RegisterCommands<ExampleUngrouppedCommands>();
+            this.Commands.RegisterCommands<ExampleGroupCommands>();
+            this.Commands.RegisterCommands<ExampleExxecutableGroup>();
+            
+            // custom formatting help
+            this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
+                
             Client.MessageCreated += async e =>
             {
                 var response = MessageParser.ParseIt(e.Message.Content).RunCommand(e.Author);
